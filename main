@@ -1,0 +1,98 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp1
+{
+    public partial class Form1 : Form
+    {
+
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            double loanBalance;
+            double years;
+            double interestRate;
+            double amount = 0;
+            bool inDeferment;
+            bool notinDeferment;
+            bool noMissedPayments;
+            bool AutoWithdrawal;
+
+
+
+            loanBalance = Convert.ToDouble(textBox1.Text);
+
+            years = Convert.ToDouble(listBox1.SelectedItem);
+
+            interestRate = Convert.ToDouble(comboBox1.SelectedItem);
+
+            inDeferment = radioButton1.Checked;
+
+            notinDeferment = radioButton2.Checked;
+
+            noMissedPayments = checkBox1.Checked;
+
+            AutoWithdrawal = checkBox2.Checked;
+
+            if (inDeferment == true)
+            {
+                amount = 0;
+
+            }
+            else if (notinDeferment == true && noMissedPayments == false && AutoWithdrawal == false)
+            {
+                amount = (interestRate * loanBalance) / (1 - Math.Pow((1 + interestRate), -years));
+            }
+            else if (notinDeferment == true && noMissedPayments == true && AutoWithdrawal == false)
+            {
+                amount = ((interestRate - 0.0025) * loanBalance) / (1 - Math.Pow((1 + interestRate), -years));
+            }
+            else if (notinDeferment == true && noMissedPayments == true && AutoWithdrawal == true)
+            {
+                amount = ((interestRate - 0.0050) * loanBalance) / (1 - Math.Pow((1 + interestRate), -years));
+            }
+            else if (notinDeferment == true && AutoWithdrawal == true && noMissedPayments == false)
+            {
+                amount = ((interestRate - 0.0025) * loanBalance) / (1 - Math.Pow((1 + interestRate), -years));
+            }
+
+            label5.Text = amount.ToString();
+
+
+
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+
+ 
+    
+
+}
